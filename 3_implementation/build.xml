@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project name="JSI" basedir="." default="compile">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+	
+	<property name="working.home" value="working"/>
+	<property name="archive.home" value="${working.home}/archive"/>
+	<property name="bin.home" value="bin"/>
+	<property name="datasets.home" value="datasets"/>
+	<property name="docs.home" value="docs"/>
+	<property name="lib.home" value="lib"/>
+	<property name="src.home" value="src"/>
+	<property name="tools.home" value="tools"/>
+
+	<property name="doctype" value="*.txt, *.pdf, *.doc, *.docx"/>
+	<property name="product" value="jsi"/>
+	<property name="version" value="v1"/>
+
+
+
+	<path id="build.class.path">
+		<pathelement path="${bin.home}"/>
+		<fileset dir="${lib.home}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+
+	<target name="compile" description="Compile source code">
+		<mkdir dir="${bin.home}"/>
+
+		<javac srcdir="${src.home}" destdir="${bin.home}"
+				debug="on" includeAntRuntime="false">
+				
+			<include name="**/*.java"/>
+			<classpath refid="build.class.path"/>
+		</javac>
+    
+		<copy todir="${bin.home}">
+			<fileset dir="${src.home}" excludes="**/*.java"/>
+		</copy>
+	</target>
+
+
+	<target name="clean-archive" description="Clean binary code and temporary files in ${archive.home} directory">
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${archive.home}"/>
+		</delete>
+	</target>
+
+
+	<target name="clean-working" description="Clean binary code and temporary files in ${working.home} directory">
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${working.home}"/>
+		</delete>
+	</target>
+
+
+	<target name="clean" description="Clean binary code and temporary files in ${bin.home} directory and ${working.home} directory">
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${bin.home}" includes="**"/>
+		</delete>
+		
+		<antcall target="clean-working" />
+	</target>
+
+
+	<target name="docs" depends="compile" description="Generating javadoc to folder ${docs.home}/api">
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${docs.home}/api" includes="**"/>
+		</delete>
+
+		<javadoc destdir="${docs.home}/api"
+			classpathref="build.class.path"
+			sourcepath="${src.home}"
+			excludepackagenames="net.temp.*">
+		</javadoc>
+	</target>
+
+
+	<target name="docs-zip" depends="compile" description="Generating and compressing javadoc to folder ${archive.home}">
+		<antcall target="clean-archive" />
+
+		<javadoc destdir="${archive.home}"
+			classpathref="build.class.path"
+			sourcepath="${src.home}"
+			excludepackagenames="net.temp.*">
+		</javadoc>
+
+		<zip destfile="${archive.home}/${product}-${version}-doc.zip" basedir="${archive.home}"/>
+		
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${archive.home}" includes="**" excludes="${product}-${version}-doc.zip"/>
+		</delete>
+	</target>
+
+
+	<target name="all-in-one" depends="compile" description="Zip whole framework">
+		<mkdir dir="${archive.home}"/>
+		<antcall target="clean-archive" />
+
+		<zip destfile="${archive.home}/${product}-${version}-all-in-one.zip" basedir="." 
+			includes="${bin.home}/**, 
+				${datasets.home}/**, 
+				${docs.home}/**, 
+				${lib.home}/**, 
+				${src.home}/**, 
+				${tools.home}/**, *" 
+			excludes="${working.home}">
+		</zip>
+	</target>
+
+
+	<target name="jar-all" depends="compile" description="Create all packages">
+		<mkdir dir="${archive.home}"/>
+		<antcall target="clean-archive" />
+		
+		<if>
+		<equals arg1="${include-runtime-lib}" arg2="embed" />
+		<then>
+			<jar destfile="${archive.home}/${product}.jar">
+	    		<fileset dir="${bin.home}"/>
+	    		<restrict>
+	     			<name name="**"/>
+					<archives>
+						<zips>
+							<fileset dir="${lib.home}" includes="*.jar, *.zip"/>
+						</zips>
+					</archives>
+	    		</restrict>
+	    		
+				<manifest>
+					<attribute name="Main-Class" value="net.jsi.ui.Investor"/>
+				</manifest>
+			</jar>
+		</then>
+		<else>
+			<if>
+			<equals arg1="${include-runtime-lib}" arg2="normal" />
+			<then>
+				<antcall target="jar-runtime-lib" />
+			</then>
+			</if>
+
+			<jar destfile="${archive.home}/${product}.jar">
+	    		<fileset dir="${bin.home}"/>
+
+				<manifest>
+					<attribute name="Main-Class" value="net.jsi.ui.Investor"/>
+				</manifest>
+			</jar>
+		</else>
+		</if>
+		
+		<copy todir="${archive.home}">
+			<fileset dir="." includes="${doctype}, *.bat, *.sh, *.script" excludes="build.*"/>
+		</copy>
+		
+		<zip destfile="${archive.home}/${product}-${version}.zip" basedir="${archive.home}"/>
+		
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${archive.home}" includes="**" excludes="${product}-${version}.zip"/>
+		</delete>
+	</target>
+
+
+	<target name="jar-all-src" depends="compile" description="Packing all sources">
+		<mkdir dir="${archive.home}"/>
+		<antcall target="clean-archive" />
+		
+		<if>
+		<equals arg1="${include-runtime-lib-src}" arg2="embed" />
+		<then>
+			<jar destfile="${archive.home}/${product}-src.jar">
+	    		<fileset dir="${src.home}"/>
+	    		<restrict>
+	     			<name name="**"/>
+					<archives>
+						<zips>
+							<fileset dir="${lib.home}/src" includes="*.jar, *.zip"/>
+						</zips>
+					</archives>
+	    		</restrict>
+			</jar>
+		</then>
+		<else>
+			<if>
+			<equals arg1="${include-runtime-lib-src}" arg2="normal" />
+			<then>
+				<antcall target="jar-runtime-lib-src" />
+			</then>
+			</if>
+
+			<jar destfile="${archive.home}/${product}-src.jar">
+	    		<fileset dir="${src.home}"/>
+			</jar>
+		</else>
+		</if>
+		
+		<copy todir="${archive.home}">
+			<fileset dir="." includes="${doctype}, *.bat, *.sh, *.xml, *.script"/>
+		</copy>
+		
+		<zip destfile="${archive.home}/${product}-${version}-src.zip" basedir="${archive.home}"/>
+		
+		<delete quiet="true" includeEmptyDirs="true">
+			<fileset dir="${archive.home}" includes="**" excludes="${product}-${version}-src.zip"/>
+		</delete>
+	</target>
+
+
+	<target name="jar-runtime-lib" depends="compile" description="Create runtime library">
+		<mkdir dir="${archive.home}"/>
+
+		<jar destfile="${archive.home}/${product}-runtime-lib.jar" update="true">
+    		<restrict>
+     			<name name="**"/>
+				<archives>
+					<zips>
+						<fileset dir="${lib.home}" includes="*.jar, *.zip"/>
+					</zips>
+				</archives>
+    		</restrict>
+    		
+		</jar>
+	</target>
+
+
+	<target name="jar-runtime-lib-src" depends="compile" description="Packing runtime library source">
+		<mkdir dir="${archive.home}"/>
+
+		<jar destfile="${archive.home}/${product}-runtime-lib-src.jar" update="true">
+    		<restrict>
+     			<name name="**"/>
+				<archives>
+					<zips>
+						<fileset dir="${lib.home}/src" includes="*.jar, *.zip"/>
+					</zips>
+				</archives>
+    		</restrict>
+		</jar>
+	</target>
+
+
+	<target name="jar-update" depends="compile" description="Update whole package">
+		<jar destfile="${archive.home}/${package}.jar" update="true">
+    		<fileset dir="${bin.home}"/>
+		</jar>
+	</target>
+
+
+	<target name="datasets" depends="compile" description="Create datasets archive">
+		<mkdir dir="${archive.home}"/>
+		<antcall target="clean-archive" />
+
+		<zip destfile="${archive.home}/datasets.zip" basedir="${datasets.home}" />
+	</target>
+
+
+</project>
+
