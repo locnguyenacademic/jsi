@@ -7,10 +7,15 @@
  */
 package net.jsi.adapter;
 
+import java.rmi.Naming;
+import java.rmi.Remote;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+
+import net.hudup.core.client.ExtraGateway;
+import net.jsi.UniverseRemote;
 
 /**
  * This is utility class to provide static utility methods. It is also adapter to other libraries.
@@ -29,7 +34,7 @@ public final class Util {
 	 * @return new list with initial capacity.
 	 */
 	public static <T> List<T> newList(int initialCapacity) {
-	    throw new RuntimeException("Require Hudup framework."); //return net.hudup.core.Util.newList(initialCapacity);
+	    return net.hudup.core.Util.newList(initialCapacity);
 	}
 
 
@@ -40,7 +45,7 @@ public final class Util {
 	 * @return new set.
 	 */
 	public static <T> Set<T> newSet(int initialCapacity) {
-		throw new RuntimeException("Require Hudup framework."); //return net.hudup.core.Util.newSet(initialCapacity);
+	    return net.hudup.core.Util.newSet(initialCapacity);
 	}
 
 	
@@ -51,7 +56,7 @@ public final class Util {
 	 * @return new vector.
 	 */
 	public static <T> Vector<T> newVector(int initialCapacity) {
-		throw new RuntimeException("Require Hudup framework."); //return net.hudup.core.Util.newVector(initialCapacity);
+	    return net.hudup.core.Util.newVector(initialCapacity);
 	}
 
 
@@ -63,8 +68,32 @@ public final class Util {
 	 * @return new map.
 	 */
 	public static <K, V> Map<K, V> newMap(int initialCapacity) {
-		throw new RuntimeException("Require Hudup framework."); //return net.hudup.core.Util.newMap(initialCapacity);
+	    return net.hudup.core.Util.newMap(initialCapacity);
 	}
 
 
+	/**
+	 * Getting remote universe.
+	 * @param host host.
+	 * @param port port.
+	 * @param account account.
+	 * @param password password.
+	 * @return remote universe.
+	 */
+	public static UniverseRemote getUniverseRemote(String host, int port, String account, String password) {
+		String uri = "rmi://" + host;
+		uri = port < 1 ? uri + "/" + "extragateway" : uri + ":" + port + "/" + "extragateway";
+		
+		UniverseRemote remoteUniverse = null;
+		try {
+			Remote extraGateway = Naming.lookup(uri);
+			if (extraGateway != null && extraGateway instanceof ExtraGateway)
+				remoteUniverse = (UniverseRemote) (((ExtraGateway)extraGateway).getAppRemoteObject(account, password, "JSI"));
+		}
+		catch (Exception e) {net.jsi.Util.trace(e);}
+		
+		return remoteUniverse;
+	}
+	
+	
 }

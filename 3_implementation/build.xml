@@ -17,6 +17,20 @@
 	<property name="version" value="v1"/>
 
 
+	<!--
+	Function: Hudup core provides essential classes of Hudup framework.
+	Affected packages, classes: net.jsi.adapter
+	Referred jars:
+	Source: https://github.com/sunflowersoft/hudup-ext/tree/master/3_implementation/src/net/hudup/core
+	Vendor: Loc Nguyen
+	Archive: working/projects/hudup-ext/3_implementation/src/net/hudup/core
+	Version: 13
+	Status: using
+	Note:
+	-->
+	<property name="hudup-core.jar" value="${lib.home}/hudup-core.jar"/>
+
+
 
 	<path id="build.class.path">
 		<pathelement path="${bin.home}"/>

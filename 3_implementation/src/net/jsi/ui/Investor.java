@@ -29,8 +29,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.rmi.Naming;
-import java.rmi.Remote;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -73,7 +71,6 @@ import net.jsi.StockProperty;
 import net.jsi.Universe;
 import net.jsi.UniverseImpl;
 import net.jsi.UniverseRemote;
-import net.jsi.UniverseRemoteGetter;
 import net.jsi.Util;
 
 public class Investor extends JFrame implements MarketListener {
@@ -1652,23 +1649,13 @@ public class Investor extends JFrame implements MarketListener {
 			public void actionPerformed(ActionEvent e) {
 				String host = txtHost.getText().trim();
 				int port = txtPort.getValue() instanceof Number ? ( (Number) txtPort.getValue()).intValue() : 0; 
-				String username = txtUsername.getText();
+				String account = txtUsername.getText();
 				@SuppressWarnings("deprecation")
 				String password = txtPassword.getText();
 
 				connector.dispose();
 
-				String uri = "rmi://" + host;
-				uri = port < 1 ? uri + "/" + "extragateway" : uri + ":" + port + "/" + "extragateway";
-
-				UniverseRemote remoteUniverse = null;
-				try {
-					Remote extraGateway = Naming.lookup(uri);
-					if (extraGateway != null && extraGateway instanceof UniverseRemoteGetter)
-						remoteUniverse = ((UniverseRemoteGetter)extraGateway).getUniverseRemote(username, password);
-				}
-				catch (Exception ex) {ex.printStackTrace();}
-				
+				UniverseRemote remoteUniverse = net.jsi.adapter.Util.getUniverseRemote(host, port, account, password);
 				if (remoteUniverse == null) {
 					JOptionPane.showMessageDialog(null, "Impossible to connect server.\nTherefore running local investor.", "Local investtor", JOptionPane.WARNING_MESSAGE);
 					new Investor(new UniverseImpl(), null, false).setVisible(true);
