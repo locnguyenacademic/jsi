@@ -13,7 +13,7 @@ PATH=.:$JDK_HOME/bin:$JAVA_HOME/bin:$ANT_HOME/bin:$PATH:$JSI_OLD_PATH
 
 echo PATH=$PATH
 
-CLASSPATH=./jsi.jar:./bin:./lib/*:./working/lib/*
+CLASSPATH=./hudup-core.jar:./hudup.jar:./sim.jar:./hudup-runtime-lib.jar:./sim-runtime-lib.jar:./jsi.jar:./bin:./lib/*:./working/lib/*:$EXTRA_CLASSPATH
 
 echo CLASSPATH=$CLASSPATH
 
