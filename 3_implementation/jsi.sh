@@ -1,4 +1,4 @@
-EXTRA_CLASSPATH=./jsi.jar:./sim-jsi.jar
+EXTRA_CLASSPATH=./sim-jsi.jar
 
 . env.sh
 

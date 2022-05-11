@@ -1,4 +1,4 @@
-set EXTRA_CLASSPATH=./jsi.jar;./sim-jsi.jar
+set EXTRA_CLASSPATH=./sim-jsi.jar
 
 call .\env.bat
 
