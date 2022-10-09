@@ -18,20 +18,26 @@
 
 
 	<!--
-	Function: Hudup core provides essential classes of Hudup framework.
+	Function: Hudup framework provides both essential classes and runtime environment.
 	Affected packages, classes: net.jsi.adapter
 	Referred jars:
-	Source: https://github.com/sunflowersoft/hudup-ext/tree/master/3_implementation/src/net/hudup/core
+	Source: https://github.com/sunflowersoft/hudup-ext/tree/master/3_implementation/src/net/hudup
 	Vendor: Loc Nguyen
-	Archive: working/projects/hudup-ext/3_implementation/src/net/hudup/core
+	Archive: working/projects/hudup-ext/3_implementation/src/net/hudup
 	Version: 13
 	Status: using
 	Note:
 	-->
-	<property name="hudup-core.jar" value="${lib.home}/hudup-core.jar"/>
+	<property name="hudup.jar" value="${lib.home}/hudup.jar"/>
 
 
-
+	<!--
+	List of classes and packages which use libraries:
+	
+	net.jsi.adapter: hudup.jar
+	-->
+	
+	
 	<path id="build.class.path">
 		<pathelement path="${bin.home}"/>
 		<fileset dir="${lib.home}">

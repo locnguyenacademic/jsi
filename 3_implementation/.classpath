@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/hudup-core.jar" sourcepath="lib/src/hudup-core-src.jar"/>
+	<classpathentry kind="lib" path="lib/hudup.jar" sourcepath="lib/src/hudup-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
