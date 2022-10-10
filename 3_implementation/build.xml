@@ -26,15 +26,29 @@
 	Archive: working/projects/hudup-ext/3_implementation/src/net/hudup
 	Version: 13
 	Status: using
-	Note:
+	Note: Actually, only hudup core classes (net.hudup.core.*) in this jar lib are used in this JSI project.
 	-->
 	<property name="hudup.jar" value="${lib.home}/hudup.jar"/>
 
 
 	<!--
+	Function: The runtime library for Hudup framework.
+	Affected packages, classes: Require to run server to attach JSI remote module.
+	Referred jars:
+	Source: http://www.locnguyen.net/st/products/hudup
+	Vendor: Loc Nguyen
+	Archive: working/projects/hudup-ext/3_implementation
+	Version: 12 build 2019.09.16
+	Status: using
+	Note:
+	-->
+	<property name="hudup-runtime-lib.jar" value="${lib.home}/hudup-runtime-lib.jar"/>
+
+
+	<!--
 	List of classes and packages which use libraries:
 	
-	net.jsi.adapter: hudup.jar
+	net.jsi.adapter: hudup.jar (only core classes in net.hudup.core.*)
 	-->
 	
 	
