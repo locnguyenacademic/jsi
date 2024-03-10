@@ -9,8 +9,8 @@ package net.jsi.adapter;
 
 import java.io.File;
 
-import net.hudup.core.App;
-import net.hudup.core.ApporAbstract;
+import net.hudup.core.app.App;
+import net.hudup.core.app.ApporAbstract;
 import net.hudup.core.client.PowerServer;
 import net.jsi.StockProperty;
 import net.jsi.UniverseImpl;
@@ -39,10 +39,10 @@ public class JSIAppor extends ApporAbstract {
 	
 	
 	/**
-	 * Default JSI application.
+	 * Default JSI application creator.
 	 */
 	public JSIAppor() {
-
+		super();
 	}
 
 	
@@ -85,7 +85,6 @@ public class JSIAppor extends ApporAbstract {
 //
 //	public UniverseRemoteImplEx(Universe universe) {
 //		super(universe);
-//		// TODO Auto-generated constructor stub
 //	}
 //	
 //	@Override

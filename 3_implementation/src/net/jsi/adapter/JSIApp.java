@@ -11,7 +11,7 @@ import java.io.File;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import net.hudup.core.AppAbstract;
+import net.hudup.core.app.AppAbstract;
 import net.hudup.core.client.ConnectInfo;
 import net.hudup.core.client.PowerServer;
 import net.jsi.StockProperty;
