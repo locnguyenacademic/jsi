@@ -61,9 +61,17 @@ public interface Market extends Serializable, Cloneable {
 	String getName();
 	
 	
+	/**
+	 * Getting time view interval in milisecond which is used to calculate many quantities.
+	 * @return time view interval in milisecond.
+	 */
 	long getTimeViewInterval();
 	
 	
+	/**
+	 * Getting time valid interval in milisecond.
+	 * @return time valid interval in milisecond.
+	 */
 	long getTimeValidInterval();
 	
 	

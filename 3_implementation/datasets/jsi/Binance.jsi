@@ -1,23 +1,25 @@
 code, buy, leverage, volume, taken_price, taken_date, real_taken_price, margin, price, low_price, high_price, alt_price, price_date, unit_bias, stop_loss, take_profit, committed, committed_date
 1
-40.0, 0.0, 0.0, 0.0, 0, 0, 1772298000000, 20.0, Binance
+40.0, 0.0, 0.0, 0.0, 1209600000, 0, 1772298000000, 20.0, Binance
 1
 -1
 AAPL, ABBV, BTCUSD, ETHUSD, INTC, KO, MRK, MSFT, PFE, XAUUSD
 crypto, energy, forex, index, mbc, stock, undefined
 -1
 0
-BTCUSD, 1.0, 70549.7579, 70549.7579, 70549.7579, 0.0, 1774315517706, 5.0
+BTCUSD, 1.0, 70556.74, 68923.07, 71400.0, 70906.45, 1774315517708, 5.0
+BTCUSD, 1.0, 70980.1447, 70408.0, 71345.0, 70556.54, 1774416324854, 5.0
 0
 $
-BTCUSD, true, 1.0E-4, 1774315517706, NaN, NaN, 70549.7579, 70549.7579, false, 0
+BTCUSD, true, 1.0E-4, 1774315517708, 70549.8, NaN, 70823.37, 71090.0, false, 0
+BTCUSD, true, 1.0E-4, 1774315517708, 70753.2, NaN, 70823.37, 71090.0, true, 1774416324854
 $
 #
 #
 &
 &
 @
-BTCUSD, com=0.0, mpc=0, prr=1.0, swp=0.0, spd=0.0, tup=1
+BTCUSD, surf=true, com=0.0, mpc=0, prr=1.0, spd=0.0, swp=0.0, tup=1
 @
 !
 !

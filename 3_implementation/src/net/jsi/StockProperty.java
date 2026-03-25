@@ -181,6 +181,12 @@ public class StockProperty implements Serializable, Cloneable {
 
 	
 	/**
+	 * Surfing mode field.
+	 */
+	public final static String SURF_MODE_FIELD = "surf";
+
+	
+	/**
 	 * Maximum number of prices for a stock.
 	 */
 	public static int MAX_PRICE_COUNT = 0;
@@ -205,7 +211,7 @@ public class StockProperty implements Serializable, Cloneable {
 
 	
 	/**
-	 * Time view interval in milisecond.
+	 * Time view interval in milisecond which is used to calculate many quantities.
 	 */
 	public static long TIME_VIEW_INTERVAL = 1000*3600*24*30;
 
@@ -251,6 +257,12 @@ public class StockProperty implements Serializable, Cloneable {
 	 * Undefined category.
 	 */
 	public static String CATEGORY_UNDEFINED = "undefined";
+	
+	
+	/**
+	 * Default value for surfing mode.
+	 */
+	public final static boolean SURF_MODE = false;
 	
 	
 	/**
@@ -402,6 +414,26 @@ public class StockProperty implements Serializable, Cloneable {
 
 	
 	/**
+	 * Getting additional boolean value associated with specified field.
+	 * @param field specified field.
+	 * @return additional boolean value associated with specified field.
+	 */
+	private boolean getMoreBooleanValue(String field) {
+		if (!moreProperties.containsKey(field)) return false;
+		boolean value = false;
+		try {
+			Object v = moreProperties.get(field);
+			if (v instanceof Boolean)
+				value = ((Boolean)v).booleanValue();
+			else
+				value = Boolean.parseBoolean(moreProperties.get(field).toString());
+		} catch (Exception e) {}
+		
+		return value;
+	}
+
+	
+	/**
 	 * Getting extra one-time fee.
 	 * @return extra one-time fee.
 	 */
@@ -518,6 +550,24 @@ public class StockProperty implements Serializable, Cloneable {
 			moreProperties.put(CATEGORY_FIELD, category);
 	}
 	
+	
+	/**
+	 * Getting surfing mode.
+	 * @return surfing mode.
+	 */
+	public boolean getSurfMode() {
+		return getMoreBooleanValue(SURF_MODE_FIELD);
+	}
+	
+	
+	/**
+	 * Setting surfing mode.
+	 * @param surfMode surfing mode.
+	 */
+	public void setSurfMode(boolean surfMode) {
+		moreProperties.put(SURF_MODE_FIELD, surfMode);
+	}
+
 	
 	/**
 	 * Converting this property into text.

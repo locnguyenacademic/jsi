@@ -21,6 +21,10 @@ public class StockImpl extends StockAbstract {
 	private double volume = 0;
 	
 	
+	/**
+	 * Unit margin is the price of the stock unit, which is applied as unit price to calculate margin.
+	 * By default unit margin is NaN. However, if unit margin is a number, the margin is calculated as volume * unit margin instead taken value * leverage.
+	 */
 	private double unitMargin = Double.NaN;
 	
 	
@@ -160,8 +164,10 @@ public class StockImpl extends StockAbstract {
 	}
 
 
-	/*
-	 * As a convention, stock price is bid price.
+	/**
+	 * Getting taken price. As a convention, stock price is bid price.
+	 * @param timeInterval time interval.
+	 * @return
 	 */
 	public Price getTakenPrice(long timeInterval) {
 		if (takenPrice == null) return null;
@@ -236,21 +242,45 @@ public class StockImpl extends StockAbstract {
 	}
 	
 
+	/**
+	 * Getting fixed unit margin.
+	 * Unit margin is the price of the stock unit, which is applied as unit price to calculate margin.
+	 * By default unit margin is NaN. However, if unit margin is a number, the margin is calculated as volume * unit margin instead taken value * leverage.
+	 * @return fixed unit margin.
+	 */
 	public double getFixedUnitMargin() {
 		return unitMargin;
 	}
 	
 	
+	/**
+	 * Setting fixed unit margin.
+	 * Unit margin is the price of the stock unit, which is applied as unit price to calculate margin.
+	 * By default unit margin is NaN. However, if unit margin is a number, the margin is calculated as volume * unit margin instead taken value * leverage.
+	 * @param unitMargin unit margin.
+	 */
 	public void setFixedUnitMargin(double unitMargin) {
 		this.unitMargin = unitMargin;
 	}
 	
 	
+	/**
+	 * Getting fixed margin mode.
+	 * Unit margin is the price of the stock unit, which is applied as unit price to calculate margin.
+	 * By default unit margin is NaN. However, if unit margin is a number, the margin is calculated as volume * unit margin instead taken value * leverage.
+	 * @return whether margin is fixed.
+	 */
 	public boolean isFixedMargin() {
 		return !Double.isNaN(unitMargin);
 	}
 	
 	
+	/**
+	 * Setting fixed margin.
+	 * Unit margin is the price of the stock unit, which is applied as unit price to calculate margin.
+	 * By default unit margin is NaN. However, if unit margin is a number, the margin is calculated as volume * unit margin instead taken value * leverage.
+	 * @param fixed fixed margin flag.
+	 */
 	public void fixMargin(boolean fixed) {
 		if (fixed) {
 			if (Double.isNaN(this.unitMargin)) this.unitMargin = getMargin(0);

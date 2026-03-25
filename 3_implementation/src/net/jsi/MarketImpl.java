@@ -196,7 +196,13 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 		for (StockGroup group : groups) {
 			List<Stock> stocks = group.getStocks(timeInterval);
 			for (Stock stock : stocks) {
-				if (stock.isCommitted()) profit += stock.getProfit(timeInterval) + stock.getMargin(timeInterval);
+				if (!stock.isCommitted()) continue;
+				
+				boolean surf = StockProperty.SURF_MODE;
+				try {
+					surf = getStore().get(stock.code()).getProperty().getSurfMode();
+				} catch (Throwable e) {Util.trace(e);}
+				profit += surf ? stock.getProfit(timeInterval) : stock.getProfit(timeInterval) + stock.getMargin(timeInterval);
 			}
 		}
 		
@@ -932,6 +938,10 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 
 	
+	/**
+	 * Getting information store.
+	 * @return information store.
+	 */
 	public StockInfoStore getStore() {
 		Universe u = getNearestUniverse();
 		return u != null ? u.getCreateStore(getName()) : null;

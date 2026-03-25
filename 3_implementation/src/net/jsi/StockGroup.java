@@ -97,11 +97,11 @@ public class StockGroup extends StockAbstract implements Market {
 
 	@Override
 	public double getValue(long timeInterval) {
-		double profit = 0;
+		double value = 0;
 		for (Stock stock : stocks) {
-			if (!stock.isCommitted()) profit += stock.getValue(timeInterval);
+			if (!stock.isCommitted()) value += stock.getValue(timeInterval);
 		}
-		return profit;
+		return value;
 	}
 
 

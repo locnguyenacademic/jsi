@@ -1365,6 +1365,7 @@ public class Investor extends JFrame implements MarketListener {
 			left.add(new JLabel("Start date: "));
 			left.add(new JLabel("Referred leverage: "));
 			left.add(new JLabel("Referred unit bias: "));
+			left.add(new JLabel("Asset mode: "));
 			left.add(new JLabel("Current directory: "));
 
 			JPanel right = new JPanel(new GridLayout(0, 1));
