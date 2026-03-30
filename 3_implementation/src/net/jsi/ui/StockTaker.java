@@ -245,7 +245,7 @@ public class StockTaker extends JDialog {
 		paneLeverage.add(chkLeverage, BorderLayout.WEST);
 	
 		txtVolume = new JFormattedTextField(Util.getNumberFormatter());
-		txtVolume.setValue(update ? input.getVolume(0, true) : 1.0); //Fixing JSI: input.getVolume(0, false) -> input.getVolume(0, true).
+		txtVolume.setValue(update ? input.getVolume(0, false) : 1.0);
 		right.add(txtVolume);
 
 		JPanel paneTakenPrice = new JPanel(new BorderLayout());
@@ -1148,7 +1148,7 @@ class StockSelector extends JDialog {
 		paneLeverage.add(chkLeverage, BorderLayout.WEST);
 	
 		txtVolume = new JFormattedTextField(Util.getNumberFormatter());
-		txtVolume.setValue(update ? input.getVolume(0, true) : 1.0); //Fixing JSI: input.getVolume(0, false) -> input.getVolume(0, true).
+		txtVolume.setValue(update ? input.getVolume(0, false) : 1.0);
 		right.add(txtVolume);
 
 		JPanel paneTakenPrice = new JPanel(new BorderLayout());

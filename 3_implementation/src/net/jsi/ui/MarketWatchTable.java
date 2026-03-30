@@ -1,3 +1,10 @@
+/**
+ * JSI: JAGGED STRATEGY INVESTMENT 
+ * (C) Copyright by Loc Nguyen's Academic Network
+ * Project homepage: jsi.locnguyen.net
+ * Email: ng_phloc@yahoo.com
+ * Phone: +84-975250362
+ */
 package net.jsi.ui;
 
 import java.awt.Component;
@@ -13,6 +20,13 @@ import net.jsi.MarketImpl;
 import net.jsi.Stock;
 import net.jsi.Universe;
 
+/**
+ * This class represents table of watched stocks.
+ * A placed stock is automatically bought or sold if the preferred price is matched whereas a watched stock is only watched. 
+ * @author Loc Nguyen
+ * @version 1.0
+ *
+ */
 public class MarketWatchTable extends MarketTable {
 
 	

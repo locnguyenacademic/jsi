@@ -21,6 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class is the default implementation of market.
+ * @author Loc Nguyen
+ * @version 1.0
+ *
+ */
 public class MarketImpl extends MarketAbstract implements QueryEstimator {
 
 	
@@ -30,44 +36,90 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	private static final long serialVersionUID = 1L;
 
 
+	/**
+	 * Starting time point.
+	 */
 	private long timeStartPoint = 0;
 	
 	
+	/**
+	 * Referred leverage.
+	 */
 	private double refLeverage = StockProperty.LEVERAGE;
 	
 	
+	/**
+	 * Referred unit bias.
+	 */
 	private double refUnitBias = StockProperty.UNIT_BIAS;
 	
 	
+	/**
+	 * Basic balance.
+	 */
 	private double balanceBase = 0;
 	
 	
+	/**
+	 * Balance bias.
+	 */
 	private double balanceBias = 0;
 
 	
+	/**
+	 * Fee for margin.
+	 */
 	private double marginFee = 0;
 	
 	
+	/**
+	 * Credit.
+	 */
 	private double credit = 0;
 
 	
+	/**
+	 * List of stock groups.
+	 */
 	protected List<StockGroup> groups = Util.newList(0);
 	
 	
+	/**
+	 * Watched market.
+	 */
 	private MarketImpl watchMarket = null;
 	
 	
+	/**
+	 * Placed market.
+	 */
 	private MarketImpl placeMarket = null;
 	
 	
+	/**
+	 * List of deleted stock groups.
+	 */
 	private MarketImpl trashMarket = null;
 
 	
+	/**
+	 * Constructor with name, referred leverage, and unit bias.
+	 * @param name market name.
+	 * @param refLeverage referred leverage.
+	 * @param unitBias unit bias.
+	 */
 	public MarketImpl(String name, double refLeverage, double unitBias) {
 		this(name, refLeverage, unitBias, true);
 	}
 	
 	
+	/**
+	 * Constructor with name, referred leverage, and unit bias.
+	 * @param name market name.
+	 * @param refLeverage referred leverage.
+	 * @param unitBias unit bias.
+	 * @param createAssocMarkets flag to indicate whether to create associated markets.
+	 */
 	protected MarketImpl(String name, double refLeverage, double unitBias, boolean createAssocMarkets) {
 		super(name);
 		this.refLeverage = refLeverage;
@@ -81,6 +133,10 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 
 	
+	/**
+	 * Creating watched market.
+	 * @return watched market.
+	 */
 	protected MarketImpl newWatchMarket() {
 		MarketImpl thisMarket = this;
 		MarketImpl watchMarket = new MarketImpl(thisMarket.getName(), thisMarket.getLeverage(), thisMarket.getUnitBias(), false) {
@@ -110,6 +166,10 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 	
 	
+	/**
+	 * Creating placed market.
+	 * @return placed market.
+	 */
 	protected MarketImpl newPlaceMarket() {
 		MarketImpl thisMarket = this;
 		MarketImpl placeMarket = new MarketImpl(thisMarket.getName(), thisMarket.getLeverage(), thisMarket.getUnitBias(), false) {
@@ -145,6 +205,10 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 
 	
+	/**
+	 * Creating trash market which is the trash of deleted stocks / stock groups.
+	 * @return trash market which is the trash of deleted stocks / stock groups.
+	 */
 	protected MarketImpl newTrashMarket() {
 		MarketImpl thisMarket = this;
 		MarketImpl trashMarket = new MarketImpl(thisMarket.getName(), thisMarket.getLeverage(), thisMarket.getUnitBias(), false) {
@@ -173,7 +237,12 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 		return trashMarket;
 	}
 
-	
+
+	/**
+	 * Getting sum of net margins.
+	 * @param timeInterval time interval
+	 * @return sum of net margins.
+	 */
 	private double sumOfNetMargins(long timeInterval) {
 		double margin = 0;
 		for (StockGroup group : groups) {
@@ -188,6 +257,11 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 	
 	
+	/**
+	 * Getting balance.
+	 * @param timeInterval time interval.
+	 * @return balance in specified time interval.
+	 */
 	private double getBalance0(long timeInterval) {
 		double balance = getBalanceBase();
 		if (timeInterval > 0) balance -= sumOfNetMargins(0) - sumOfNetMargins(timeInterval);
@@ -216,26 +290,48 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 
 	
+	/**
+	 * Getting balance base.
+	 * @return balance base.
+	 */
 	public double getBalanceBase() {
 		return this.balanceBase;
 	}
 	
 	
+	/**
+	 * Setting balance base.
+	 * @param balanceBase balance base.
+	 */
 	public void setBalanceBase(double balanceBase) {
 		this.balanceBase = balanceBase;
 	}
 	
 	
+	/**
+	 * Calculating balance bias.
+	 * @param providedBalance provided balance.
+	 * @param timeInterval time interval.
+	 * @return balance bias.
+	 */
 	public double calcBalanceBias(double providedBalance, long timeInterval) {
 		return getBalance0(timeInterval) - providedBalance;
 	}
 	
 	
+	/**
+	 * Getting balance bias.
+	 * @return balance bias.
+	 */
 	public double getBalanceBias() {
 		return balanceBias;
 	}
 
 	
+	/**
+	 * Setting balance bias.
+	 * @param balanceBias balance bias.
+	 */
 	public void setBalanceBias(double balanceBias) {
 		this.balanceBias = balanceBias;
 	}

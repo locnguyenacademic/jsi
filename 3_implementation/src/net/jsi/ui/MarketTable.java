@@ -2019,7 +2019,7 @@ class MarketPanel extends JPanel implements MarketListener {
 		if (dlgMarket.isPressOK())
 			tblMarket.apply();
 		else {
-			int answer= JOptionPane.showConfirmDialog(this, "Would you like to to apply changes?", "Applying confirmation", JOptionPane.YES_NO_OPTION);
+			int answer= JOptionPane.showConfirmDialog(this, "Would you like to apply changes?", "Applying confirmation", JOptionPane.YES_NO_OPTION);
 			if (answer == JOptionPane.YES_OPTION) tblMarket.apply();
 		}
 	}
@@ -2033,7 +2033,7 @@ class MarketPanel extends JPanel implements MarketListener {
 		if (dlgMarket.isPressOK())
 			tblMarket.apply();
 		else {
-			int answer= JOptionPane.showConfirmDialog(this, "Would you like to to apply changes?", "Applying confirmation", JOptionPane.YES_NO_OPTION);
+			int answer= JOptionPane.showConfirmDialog(this, "Would you like to apply changes?", "Applying confirmation", JOptionPane.YES_NO_OPTION);
 			if (answer == JOptionPane.YES_OPTION) tblMarket.apply();
 		}
 	}

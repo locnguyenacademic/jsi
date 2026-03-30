@@ -211,13 +211,13 @@ public class StockProperty implements Serializable, Cloneable {
 
 	
 	/**
-	 * Time view interval in milisecond which is used to calculate many quantities.
+	 * Time view interval in milisecond which is used to calculate many quantities, which is smaller than time valid interval.
 	 */
 	public static long TIME_VIEW_INTERVAL = 1000*3600*24*30;
 
 
 	/**
-	 * Time valid interval in milisecond.
+	 * Time valid interval in milisecond, which is larger than time view interval.
 	 */
 	public static long TIME_VALID_INTERVAL = 0;
 

@@ -426,7 +426,7 @@ public class Investor extends JFrame implements MarketListener {
 				if (dlgMarket.isPressOK())
 					tblMarket.apply();
 				else {
-					int answer= JOptionPane.showConfirmDialog(thisInvestor, "Would you like to to apply changes?", "Applying confirmation", JOptionPane.YES_NO_OPTION);
+					int answer= JOptionPane.showConfirmDialog(thisInvestor, "Would you like to apply changes?", "Applying confirmation", JOptionPane.YES_NO_OPTION);
 					if (answer == JOptionPane.YES_OPTION) tblMarket.apply();
 				}
 			}
@@ -452,7 +452,7 @@ public class Investor extends JFrame implements MarketListener {
 				if (dlgMarket.isPressOK())
 					tblMarket.apply();
 				else {
-					int answer= JOptionPane.showConfirmDialog(thisInvestor, "Would you like to to apply changes?", "Applaying confirmation", JOptionPane.YES_NO_OPTION);
+					int answer= JOptionPane.showConfirmDialog(thisInvestor, "Would you like to apply changes?", "Applaying confirmation", JOptionPane.YES_NO_OPTION);
 					if (answer == JOptionPane.YES_OPTION) tblMarket.apply();
 				}
 			}
@@ -586,7 +586,7 @@ public class Investor extends JFrame implements MarketListener {
 					if (rd.isPressOK())
 						tblMarket.apply();
 					else {
-						int answer= JOptionPane.showConfirmDialog(thisInvestor, "Would you like to to apply changes?", "Applaying confirmation", JOptionPane.YES_NO_OPTION);
+						int answer= JOptionPane.showConfirmDialog(thisInvestor, "Would you like to apply changes?", "Applaying confirmation", JOptionPane.YES_NO_OPTION);
 						if (answer == JOptionPane.YES_OPTION) tblMarket.apply();
 					}
 				}
@@ -1365,7 +1365,6 @@ public class Investor extends JFrame implements MarketListener {
 			left.add(new JLabel("Start date: "));
 			left.add(new JLabel("Referred leverage: "));
 			left.add(new JLabel("Referred unit bias: "));
-			left.add(new JLabel("Asset mode: "));
 			left.add(new JLabel("Current directory: "));
 
 			JPanel right = new JPanel(new GridLayout(0, 1));
