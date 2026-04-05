@@ -318,7 +318,7 @@ public class Investor extends JFrame implements MarketListener {
 		//double totalOscill = universe.calcOscillAbs(timeViewInterval);
 		double totalInvest = universe.calcInvestAmount(timeViewInterval);
 		
-		profit = profit < 0 ? profit : (totalInvest > profit ? profit : profit - totalInvest);
+		profit = profit < 0 ? profit : (totalInvest > profit || totalInvest < 0 ? profit : profit - totalInvest);
 		
 		lblTotalProfit.setText("PROFIT: " + Util.format(profit, d));
 		lblTotalSurplus.setText("SUR: " + Util.format(surplus*100, d) + "%");

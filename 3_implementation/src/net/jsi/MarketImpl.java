@@ -337,6 +337,11 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 
 	
+	/**
+	 * Getting margin.
+	 * @param timeInterval time interval.
+	 * @return margin the specified interval.
+	 */
 	private double getMargin0(long timeInterval) {
 		double margin = 0;
 		for (StockGroup group : groups) {
@@ -352,16 +357,30 @@ public class MarketImpl extends MarketAbstract implements QueryEstimator {
 	}
 	
 	
+	/**
+	 * Calculating margin bias.
+	 * @param newMargin new margin.
+	 * @param timeInterval time interval.
+	 * @return margin bias.
+	 */
 	public double calcMarginBias(double newMargin, long timeInterval) {
 		return getMargin0(timeInterval) - newMargin;
 	}
 	
 	
+	/**
+	 * Getting margin fee.
+	 * @return margin fee.
+	 */
 	public double getMarginFee() {
 		return marginFee;
 	}
 
 	
+	/**
+	 * Setting margin fee.
+	 * @param marginFee margin fee.
+	 */
 	public void setMarginFee(double marginFee) {
 		this.marginFee = marginFee;
 	}
